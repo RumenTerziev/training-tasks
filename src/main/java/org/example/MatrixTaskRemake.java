@@ -89,12 +89,14 @@ public class MatrixTaskRemake {
 
     private static void printMatrix() {
         for (int[] rows : MATRIX) {
-            System.out.println(" --------------------------------------------------");
+            System.out.println(" ------------------------------------------------------------");
             for (int col = 0; col < rows.length; col++) {
                 if (col == 0) {
                     System.out.print("|  ");
                 }
                 if (rows[col] <= 9) {
+                    System.out.print(rows[col] + "   | ");
+                } else if (rows[col] <= 99) {
                     System.out.print(rows[col] + "  | ");
                 } else {
                     System.out.print(rows[col] + " | ");
@@ -102,6 +104,6 @@ public class MatrixTaskRemake {
             }
             System.out.println();
         }
-        System.out.println(" --------------------------------------------------");
+        System.out.println(" ------------------------------------------------------------");
     }
 }
