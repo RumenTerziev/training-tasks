@@ -2,8 +2,8 @@ package org.example;
 
 public class MatrixTaskRemake {
 
-    private static final int ROWS = 10;
-    private static final int COLS = 10;
+    private static final int ROWS = 3;
+    private static final int COLS = 5;
     private static final int[][] MATRIX = new int[ROWS][COLS];
     private static int currentRow = 0;
     private static int currentCol = 0;
@@ -88,22 +88,35 @@ public class MatrixTaskRemake {
     }
 
     private static void printMatrix() {
-        for (int[] rows : MATRIX) {
-            System.out.println(" ------------------------------------------------------------");
-            for (int col = 0; col < rows.length; col++) {
+        printDashes(MATRIX[0].length);
+        System.out.println();
+        for (int[] row : MATRIX) {
+            for (int col = 0; col < row.length; col++) {
                 if (col == 0) {
-                    System.out.print("|  ");
+                    System.out.print("|");
                 }
-                if (rows[col] <= 9) {
-                    System.out.print(rows[col] + "   | ");
-                } else if (rows[col] <= 99) {
-                    System.out.print(rows[col] + "  | ");
-                } else {
-                    System.out.print(rows[col] + " | ");
-                }
+                printCell(row, col, row[col]);
             }
             System.out.println();
+            printDashes(row.length);
+            System.out.println();
         }
-        System.out.println(" ------------------------------------------------------------");
+    }
+
+    private static void printDashes(int rowLength) {
+        for (int index = 0; index < 7 * rowLength - 1; index++) {
+            if (index == 0) {
+                System.out.print(" ");
+            }
+            System.out.print("-");
+        }
+    }
+
+    private static void printCell(int[] row, int col, int num) {
+        int cellLength = 6;
+        String stringNum = row[col] + "";
+        int countSpaces = cellLength - 2 - stringNum.length();
+        String space = " ";
+        System.out.print(space.repeat(2) + num + space.repeat(countSpaces) + "|");
     }
 }
