@@ -68,16 +68,16 @@ public class MatrixTask {
     }
 
     private static void printMatrix(int[][] matrix) {
-        for (int row = 0; row < matrix.length; row++) {
+        for (int[] rows : matrix) {
             System.out.println(" -------------------------");
-            for (int col = 0; col < matrix[row].length; col++) {
+            for (int col = 0; col < rows.length; col++) {
                 if (col == 0) {
                     System.out.print("|  ");
                 }
-                if (matrix[row][col] <= 9) {
-                    System.out.print(matrix[row][col] + "  | ");
+                if (rows[col] <= 9) {
+                    System.out.print(rows[col] + "  | ");
                 } else {
-                    System.out.print(matrix[row][col] + " | ");
+                    System.out.print(rows[col] + " | ");
                 }
             }
             System.out.println();
