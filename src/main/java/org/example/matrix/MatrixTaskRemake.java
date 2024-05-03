@@ -1,6 +1,5 @@
 package org.example.matrix;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,12 +14,13 @@ public class MatrixTaskRemake {
     private static final int MAX_NUM = MATRIX.length * MATRIX[0].length;
     private static Map<Integer, Coordinate> coordinates = new HashMap<>();
 
-    public static void main(String[] args) throws InterruptedException, IOException {
+    public static void main(String[] args) throws InterruptedException {
         fillMatrix();
         clearConsole();
         Thread.sleep(2000);
         printMatrix();
-        rotateMultipleTimes(Integer.parseInt(args[0]));
+        int timesToRotate = args.length > 0 ? Integer.parseInt(args[0]) : 1;
+        rotateMultipleTimes(timesToRotate);
     }
 
     private static void fillMatrix() {
@@ -101,42 +101,46 @@ public class MatrixTaskRemake {
     }
 
     private static void printMatrix() {
-        printDashes(MATRIX[0].length);
-        System.out.println();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getRowDashes(MATRIX[0].length))
+                .append(System.lineSeparator());
         for (int[] row : MATRIX) {
             for (int col = 0; col < row.length; col++) {
                 if (col == 0) {
-                    System.out.print("|");
+                    stringBuilder.append("|");
                 }
-                printCell(row, col, row[col]);
+                stringBuilder.append(getCellRepresentation(row, col, row[col]));
             }
-            System.out.println();
-            printDashes(row.length);
-            System.out.println();
+            stringBuilder.append(System.lineSeparator())
+                    .append(getRowDashes(row.length))
+                    .append(System.lineSeparator());
         }
+        System.out.println(stringBuilder);
     }
 
-    private static void printDashes(int rowLength) {
+    private static String getRowDashes(int rowLength) {
+        StringBuilder stringBuilder = new StringBuilder();
         for (int index = 0; index < 7 * rowLength - 1; index++) {
             if (index == 0) {
-                System.out.print(" ");
+                stringBuilder.append(" ");
             }
-            System.out.print("-");
+            stringBuilder.append("-");
         }
+        return stringBuilder.toString();
     }
 
-    private static void printCell(int[] row, int col, int num) {
+    private static String getCellRepresentation(int[] row, int col, int num) {
         int cellLength = 6;
         String stringNum = row[col] + "";
         int countSpaces = cellLength - 2 - stringNum.length();
         String space = " ";
-        System.out.print(space.repeat(2) + num + space.repeat(countSpaces) + "|");
+        return space.repeat(2) + num + space.repeat(countSpaces) + "|";
     }
 
-    private static void rotateMultipleTimes(int timesToRotate) throws InterruptedException, IOException {
+    private static void rotateMultipleTimes(int timesToRotate) throws InterruptedException {
         for (int i = 0; i < timesToRotate; i++) {
             rotateMatrix();
-            Thread.sleep(1500);
+            Thread.sleep(200);
             clearConsole();
             printMatrix();
         }
