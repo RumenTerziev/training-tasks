@@ -1,22 +1,27 @@
-package org.example;
+package org.example.matrix;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MatrixTaskRemake {
 
-    private static final int ROWS = 3;
+    private static final int ROWS = 5;
     private static final int COLS = 5;
     private static final int[][] MATRIX = new int[ROWS][COLS];
     private static int currentRow = 0;
     private static int currentCol = 0;
-    private static int NEXT_NUM = 1;
+    private static int nextNum = 1;
     private static final int MAX_NUM = MATRIX.length * MATRIX[0].length;
+    private static Map<Integer, Coordinate> coordinates = new HashMap<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         fillMatrix();
         printMatrix();
+        rotateMultipleTimes(5);
     }
 
     private static void fillMatrix() {
-        while (NEXT_NUM <= MAX_NUM) {
+        while (nextNum <= MAX_NUM) {
             fillRow();
             fillColumn();
             fillRowBackWards();
@@ -59,28 +64,33 @@ public class MatrixTaskRemake {
     }
 
     private static boolean doFillValues(boolean isColMode, int index) {
+        int localRow;
+        int localCol;
         if (isColMode) {
             int currentNum = MATRIX[currentRow][index];
             if (isNotEligibleForChange(currentNum) || isOutOfBounds(currentRow, index)) {
                 return true;
             }
-            MATRIX[currentRow][index] = NEXT_NUM;
-            NEXT_NUM++;
+            localRow = currentRow;
+            localCol = index;
             currentCol = index;
         } else {
             int currentNum = MATRIX[index][currentCol];
             if (isNotEligibleForChange(currentNum) || isOutOfBounds(currentRow, index)) {
                 return true;
             }
-            MATRIX[index][currentCol] = NEXT_NUM;
-            NEXT_NUM++;
+            localRow = index;
+            localCol = currentCol;
             currentRow = index;
         }
+        MATRIX[localRow][localCol] = nextNum;
+        coordinates.putIfAbsent(nextNum, new Coordinate(localRow, localCol));
+        nextNum++;
         return false;
     }
 
     private static boolean isNotEligibleForChange(int number) {
-        return number != 0 || NEXT_NUM > MAX_NUM;
+        return number != 0 || nextNum > MAX_NUM;
     }
 
     private static boolean isOutOfBounds(int row, int col) {
@@ -118,5 +128,34 @@ public class MatrixTaskRemake {
         int countSpaces = cellLength - 2 - stringNum.length();
         String space = " ";
         System.out.print(space.repeat(2) + num + space.repeat(countSpaces) + "|");
+    }
+
+    private static void rotateMultipleTimes(int timesToRotate) throws InterruptedException {
+        for (int i = 0; i < timesToRotate; i++) {
+            rotateMatrix();
+            Thread.sleep(1000);
+            printMatrix();
+        }
+    }
+
+    private static void rotateMatrix() {
+        Map<Integer, Coordinate> updatedCoords = new HashMap<>();
+        for (Map.Entry<Integer, Coordinate> entry : coordinates.entrySet()) {
+            int nextKey = entry.getKey() + 1;
+            if (coordinates.containsKey(nextKey)) {
+                Coordinate nextCoords = coordinates.get(nextKey);
+                updatedCoords.put(entry.getKey(), nextCoords);
+            }
+        }
+        Coordinate firstNumCoords = coordinates.get(1);
+        MATRIX[firstNumCoords.row()][firstNumCoords.col()] = MAX_NUM;
+        coordinates = updatedCoords;
+        coordinates.put(MAX_NUM, firstNumCoords);
+        for (Map.Entry<Integer, Coordinate> coordinateEntry : updatedCoords.entrySet()) {
+            if (coordinateEntry.getKey() > MAX_NUM) {
+                break;
+            }
+            MATRIX[coordinateEntry.getValue().row()][coordinateEntry.getValue().col()] = coordinateEntry.getKey();
+        }
     }
 }

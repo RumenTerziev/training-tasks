@@ -1,4 +1,4 @@
-package org.example;
+package org.example.matrix;
 
 public class MatrixTask {
     public static void main(String[] args) {
