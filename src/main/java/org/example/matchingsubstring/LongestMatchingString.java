@@ -1,4 +1,4 @@
-package org.example;
+package org.example.matchingsubstring;
 
 public class LongestMatchingString {
     public static void main(String[] args) {
