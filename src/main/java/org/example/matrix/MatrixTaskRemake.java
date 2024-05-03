@@ -1,12 +1,13 @@
 package org.example.matrix;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MatrixTaskRemake {
 
-    private static final int ROWS = 5;
-    private static final int COLS = 5;
+    private static final int ROWS = 10;
+    private static final int COLS = 10;
     private static final int[][] MATRIX = new int[ROWS][COLS];
     private static int currentRow = 0;
     private static int currentCol = 0;
@@ -14,10 +15,12 @@ public class MatrixTaskRemake {
     private static final int MAX_NUM = MATRIX.length * MATRIX[0].length;
     private static Map<Integer, Coordinate> coordinates = new HashMap<>();
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
         fillMatrix();
+        clearConsole();
+        Thread.sleep(2000);
         printMatrix();
-        rotateMultipleTimes(5);
+        rotateMultipleTimes(Integer.parseInt(args[0]));
     }
 
     private static void fillMatrix() {
@@ -130,10 +133,11 @@ public class MatrixTaskRemake {
         System.out.print(space.repeat(2) + num + space.repeat(countSpaces) + "|");
     }
 
-    private static void rotateMultipleTimes(int timesToRotate) throws InterruptedException {
+    private static void rotateMultipleTimes(int timesToRotate) throws InterruptedException, IOException {
         for (int i = 0; i < timesToRotate; i++) {
             rotateMatrix();
-            Thread.sleep(1000);
+            Thread.sleep(1500);
+            clearConsole();
             printMatrix();
         }
     }
@@ -156,6 +160,19 @@ public class MatrixTaskRemake {
                 break;
             }
             MATRIX[coordinateEntry.getValue().row()][coordinateEntry.getValue().col()] = coordinateEntry.getKey();
+        }
+    }
+
+    public static void clearConsole() {
+        try {
+            final String os = System.getProperty("os.name");
+            if (os.contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                new ProcessBuilder("bash", "-c", "clear").inheritIO().start().waitFor();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }
