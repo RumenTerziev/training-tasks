@@ -5,8 +5,8 @@ import java.util.Map;
 
 public class MatrixTaskRemake {
 
-    private static final int ROWS = 10;
-    private static final int COLS = 10;
+    private static final int ROWS = 5;
+    private static final int COLS = 5;
     private static final int[][] MATRIX = new int[ROWS][COLS];
     private static int currentRow = 0;
     private static int currentCol = 0;
@@ -17,7 +17,7 @@ public class MatrixTaskRemake {
     public static void main(String[] args) throws InterruptedException {
         fillMatrix();
         clearConsole();
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         printMatrix();
         int timesToRotate = args.length > 0 ? Integer.parseInt(args[0]) : 1;
         rotateMultipleTimes(timesToRotate);
@@ -140,7 +140,7 @@ public class MatrixTaskRemake {
     private static void rotateMultipleTimes(int timesToRotate) throws InterruptedException {
         for (int i = 0; i < timesToRotate; i++) {
             rotateMatrix();
-            Thread.sleep(200);
+            Thread.sleep(300);
             clearConsole();
             printMatrix();
         }
