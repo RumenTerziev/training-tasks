@@ -15,6 +15,10 @@ public class Main {
         IMaxSumSeqFinder maxSumBaseFinder = new MaxSumBaseFinder();
         IMaxSumSeqFinder maxSumAdvancedFinder = new MaxSumAdvancedFinder();
         Map<int[], List<Integer>> testCases = TestCasesGenerator.getTestCases();
+        int[] largeTestArray = TestCasesGenerator.getLargeTestArray();
+
+        List<Integer> maxSumSeq = maxSumBaseFinder.findMaxSumSeq(largeTestArray);
+        System.out.println(maxSumSeq);
 
         System.out.println("Base finder results ->");
         for (int[] key : testCases.keySet()) {
