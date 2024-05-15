@@ -25,7 +25,7 @@ class IMaxSumSeqFinderTest {
         for (Map.Entry<int[], List<Integer>> entry : testCases.entrySet()) {
             List<Integer> maxSumOfSequences = maxSumBaseFinder.findMaxSumSeq(entry.getKey());
             assertThat(entry.getValue()).isEqualTo(maxSumOfSequences);
-            doTestGetNumberOccurrences(maxSumBaseFinder, entry.getKey(), entry.getValue());
+            doTestFindMaxSumSeq(maxSumBaseFinder, entry.getKey(), entry.getValue());
         }
     }
 
@@ -37,7 +37,7 @@ class IMaxSumSeqFinderTest {
         for (Map.Entry<int[], List<Integer>> entry : testCases.entrySet()) {
             List<Integer> maxSumOfSequences = maxSumBaseFinder.findMaxSumSeq(entry.getKey());
             assertThat(entry.getValue()).isEqualTo(maxSumOfSequences);
-            doTestGetNumberOccurrences(maxSumAdvancedFinder, entry.getKey(), entry.getValue());
+            doTestFindMaxSumSeq(maxSumAdvancedFinder, entry.getKey(), entry.getValue());
         }
     }
 
@@ -59,7 +59,7 @@ class IMaxSumSeqFinderTest {
         testRunTime(maxSumBaseFinder, runnable);
     }
 
-    private void doTestGetNumberOccurrences(IMaxSumSeqFinder maxSumSeqFinder, int[] arr, List<Integer> expectedSeq) {
+    private void doTestFindMaxSumSeq(IMaxSumSeqFinder maxSumSeqFinder, int[] arr, List<Integer> expectedSeq) {
         List<Integer> result = maxSumSeqFinder.findMaxSumSeq(arr);
         assertThat(result).isEqualTo(expectedSeq);
     }
