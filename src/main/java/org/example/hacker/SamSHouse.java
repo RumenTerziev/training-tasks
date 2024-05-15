@@ -42,17 +42,14 @@ public class SamSHouse {
         Integer longestAppleFallingDistance = getMaxDistance(appleFallingDistances);
         Integer longestOrangeFallingDistance = getMaxDistance(orangeFallingDistances);
 
-
         int rows = 1;
         int maxDistance = Math.max(longestAppleFallingDistance, longestOrangeFallingDistance);
         int cols = orangeTreePoint + maxDistance + 1;
-
         char[][] matrix = new char[rows][cols];
 
         fillMatrix(appleTreePoint, orangeTreePoint, houseStartingPoint, houseEndingPoint, rows, cols, matrix);
 
         int countApplesOnTheHouse = getCountFruitsOnTheHouse(appleTreePoint, appleFallingDistances, matrix);
-
         int countOrangesOnTheHouse = getCountFruitsOnTheHouse(orangeTreePoint, orangeFallingDistances, matrix);
 
         printMatrix(rows, cols, matrix);

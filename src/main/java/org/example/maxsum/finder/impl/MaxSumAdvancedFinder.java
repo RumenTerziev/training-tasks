@@ -2,7 +2,9 @@ package org.example.maxsum.finder.impl;
 
 import org.example.maxsum.finder.IMaxSumSeqFinder;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 
 public class MaxSumAdvancedFinder implements IMaxSumSeqFinder {
 

@@ -1,8 +1,8 @@
 package org.example.maxsum;
 
 import org.example.maxsum.finder.IMaxSumSeqFinder;
-import org.example.maxsum.finder.impl.MaxSumBaseFinder;
 import org.example.maxsum.finder.impl.MaxSumAdvancedFinder;
+import org.example.maxsum.finder.impl.MaxSumBaseFinder;
 import org.example.maxsum.finder.util.TestCasesGenerator;
 
 import java.util.List;
