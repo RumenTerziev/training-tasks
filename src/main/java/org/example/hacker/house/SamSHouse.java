@@ -1,9 +1,9 @@
-package org.example.hacker;
+package org.example.hacker.house;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
+
+import static org.example.hacker.house.IOUtils.getListFromLine;
 
 public class SamSHouse {
     public static void main(String[] args) {
@@ -26,12 +26,6 @@ public class SamSHouse {
                 appleDistancesOfFalling, orangeDistancesOfFalling);
         System.out.println(countFruitsFallingOnTheHouse.getFirst());
         System.out.println(countFruitsFallingOnTheHouse.getLast());
-    }
-
-    private static List<Integer> getListFromLine(Scanner scanner) {
-        return Arrays.stream(scanner.nextLine().split("\\s+"))
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
     }
 
 
