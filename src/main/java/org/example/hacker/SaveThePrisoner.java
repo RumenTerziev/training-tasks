@@ -1,13 +1,18 @@
 package org.example.hacker;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.stream.IntStream;
+
+import static org.example.hacker.util.IOUtils.getSysInBufferedReader;
+import static org.example.hacker.util.IOUtils.getSysOutBufferedWriter;
 
 public class SaveThePrisoner {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
+        BufferedReader bufferedReader = getSysInBufferedReader();
+        BufferedWriter bufferedWriter = getSysOutBufferedWriter();
 
         int t = Integer.parseInt(bufferedReader.readLine().trim());
 
