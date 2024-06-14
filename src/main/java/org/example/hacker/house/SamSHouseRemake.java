@@ -1,50 +1,30 @@
 package org.example.hacker.house;
 
 import java.util.List;
-import java.util.Scanner;
 
-import static org.example.hacker.house.IOUtils.getListFromLine;
+import static org.example.hacker.house.HouseInputUtils.getHouseInput;
 
 public class SamSHouseRemake {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        List<Integer> houseCoords = getListFromLine(scanner);
-        List<Integer> treesCoords = getListFromLine(scanner);
-        List<Integer> fruitCounts = getListFromLine(scanner);
-        List<Integer> appleDistancesOfFalling = getListFromLine(scanner);
-        List<Integer> orangeDistancesOfFalling = getListFromLine(scanner);
-
-        int houseStartingPoint = houseCoords.get(0);
-        int houseEndingPoint = houseCoords.get(1);
-        int appleTreePosition = treesCoords.get(0);
-        int orangeTreePosition = treesCoords.get(1);
-        int applesCount = fruitCounts.get(0);
-        int orangesCount = fruitCounts.get(1);
-
-        List<Long> countFruitsFallingOnTheHouse = countApplesAndOrangesFallingOnTheHouse(houseStartingPoint,
-                houseEndingPoint, appleTreePosition, orangeTreePosition,
-                appleDistancesOfFalling, orangeDistancesOfFalling);
+        List<Long> countFruitsFallingOnTheHouse = countApplesAndOrangesFallingOnTheHouse(getHouseInput());
         System.out.println(countFruitsFallingOnTheHouse.getFirst());
         System.out.println(countFruitsFallingOnTheHouse.getLast());
     }
 
-    public static List<Long> countApplesAndOrangesFallingOnTheHouse(int houseStartingPoint, int houseEndingPoint,
-                                                                    int appleTreePoint, int orangeTreePoint,
-                                                                    List<Integer> appleFallingDistances,
-                                                                    List<Integer> orangeFallingDistances) {
+    public static List<Long> countApplesAndOrangesFallingOnTheHouse(HouseInput houseInput) {
 
         long countApplesOnTheHouse = getCountFruitsOnTheHouse(
-                houseStartingPoint,
-                houseEndingPoint,
-                appleTreePoint,
-                appleFallingDistances
+                houseInput.houseStartingPoint(),
+                houseInput.houseEndingPoint(),
+                houseInput.appleTreePosition(),
+                houseInput.appleFallingDistances()
         );
 
         long countOrangesOnTheHouse = getCountFruitsOnTheHouse(
-                houseStartingPoint,
-                houseEndingPoint,
-                orangeTreePoint,
-                orangeFallingDistances
+                houseInput.houseStartingPoint(),
+                houseInput.houseEndingPoint(),
+                houseInput.orangeTreePosition(),
+                houseInput.orangeFallingDistances()
         );
 
         return List.of(countApplesOnTheHouse, countOrangesOnTheHouse);

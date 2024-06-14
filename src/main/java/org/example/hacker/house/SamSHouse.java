@@ -1,50 +1,37 @@
 package org.example.hacker.house;
 
 import java.util.List;
-import java.util.Scanner;
 
-import static org.example.hacker.house.IOUtils.getListFromLine;
+import static org.example.hacker.house.HouseInputUtils.getHouseInput;
 
 public class SamSHouse {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        List<Integer> houseCoords = getListFromLine(scanner);
-        List<Integer> treesCoords = getListFromLine(scanner);
-        List<Integer> fruitCounts = getListFromLine(scanner);
-        List<Integer> appleDistancesOfFalling = getListFromLine(scanner);
-        List<Integer> orangeDistancesOfFalling = getListFromLine(scanner);
-
-        int houseStartingPoint = houseCoords.get(0);
-        int houseEndingPoint = houseCoords.get(1);
-        int appleTreePosition = treesCoords.get(0);
-        int orangeTreePosition = treesCoords.get(1);
-        int applesCount = fruitCounts.get(0);
-        int orangesCount = fruitCounts.get(1);
-
-        List<Integer> countFruitsFallingOnTheHouse = countApplesAndOrangesFallingOnTheHouse(houseStartingPoint,
-                houseEndingPoint, appleTreePosition, orangeTreePosition,
-                appleDistancesOfFalling, orangeDistancesOfFalling);
+        List<Integer> countFruitsFallingOnTheHouse = countApplesAndOrangesFallingOnTheHouse(getHouseInput());
         System.out.println(countFruitsFallingOnTheHouse.getFirst());
         System.out.println(countFruitsFallingOnTheHouse.getLast());
     }
 
-
-    public static List<Integer> countApplesAndOrangesFallingOnTheHouse(int houseStartingPoint, int houseEndingPoint,
-                                                                       int appleTreePoint, int orangeTreePoint,
-                                                                       List<Integer> appleFallingDistances,
-                                                                       List<Integer> orangeFallingDistances) {
-        Integer longestAppleFallingDistance = getMaxDistance(appleFallingDistances);
-        Integer longestOrangeFallingDistance = getMaxDistance(orangeFallingDistances);
+    public static List<Integer> countApplesAndOrangesFallingOnTheHouse(HouseInput houseInput) {
+        Integer longestAppleFallingDistance = getMaxDistance(houseInput.appleFallingDistances());
+        Integer longestOrangeFallingDistance = getMaxDistance(houseInput.orangeFallingDistances());
 
         int rows = 1;
         int maxDistance = Math.max(longestAppleFallingDistance, longestOrangeFallingDistance);
-        int cols = orangeTreePoint + maxDistance + 1;
+        int cols = houseInput.orangeTreePosition() + maxDistance + 1;
         char[][] matrix = new char[rows][cols];
 
-        fillMatrix(appleTreePoint, orangeTreePoint, houseStartingPoint, houseEndingPoint, rows, cols, matrix);
+        fillMatrix(
+                houseInput.appleTreePosition(),
+                houseInput.orangeTreePosition(),
+                houseInput.houseStartingPoint(),
+                houseInput.houseEndingPoint(),
+                rows,
+                cols,
+                matrix
+        );
 
-        int countApplesOnTheHouse = getCountFruitsOnTheHouse(appleTreePoint, appleFallingDistances, matrix);
-        int countOrangesOnTheHouse = getCountFruitsOnTheHouse(orangeTreePoint, orangeFallingDistances, matrix);
+        int countApplesOnTheHouse = getCountFruitsOnTheHouse(houseInput.appleTreePosition(), houseInput.appleFallingDistances(), matrix);
+        int countOrangesOnTheHouse = getCountFruitsOnTheHouse(houseInput.orangeTreePosition(), houseInput.orangeFallingDistances(), matrix);
 
         printMatrix(rows, cols, matrix);
 
