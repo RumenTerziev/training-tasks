@@ -1,16 +1,8 @@
 package org.example.sorting;
 
-import java.util.Arrays;
+public class BaseSorter implements ISorter {
 
-public class SortingArray {
-
-    public static void main(String[] args) {
-        int[] arr = {1, 8, 5, 4, 3, 6, 7, 2, 9, 10};
-        sortedArray(arr);
-        System.out.println(Arrays.toString(arr));
-    }
-
-    private static void sortedArray(int[] arr) {
+    public void sort(int[] arr) {
         for (int indexOne = 0; indexOne < arr.length - 1; indexOne++) {
             for (int indexTwo = indexOne + 1; indexTwo < arr.length; indexTwo++) {
                 if (arr[indexOne] > arr[indexTwo]) {
