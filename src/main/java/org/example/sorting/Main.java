@@ -6,7 +6,7 @@ public class Main {
 
     private static final ISorter QUICK_SORTER = new QuickSorter();
 
-    private static final ISorter BASE_SORTER = new BaseSorter();
+    private static final ISorter SELECTION_SORTER = new SelectionSorter();
 
     public static void main(String[] args) {
         int[] arr = {1, 8, 5, 4, 3, 6, 7, 2, 9, 10};
@@ -20,7 +20,7 @@ public class Main {
         int[] copyArr = {1, 8, 5, 4, 3, 6, 7, 2, 9, 10};
         System.out.println("Printing array before sorting:");
         printArray(copyArr);
-        BASE_SORTER.sort(copyArr);
+        SELECTION_SORTER.sort(copyArr);
         System.out.println("Printing array after sorting:");
         printArray(copyArr);
     }
