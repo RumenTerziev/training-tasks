@@ -1,17 +1,17 @@
-package org.example.passingbridgre;
+package org.example.passingbridegre;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class PassingBridge {
 
     public static void main(String[] args) {
-        double result = getMinPassingTime(List.of(10.0, 2.0, 5.0, 1.0));
+        double result = new PassingBridge().getMinPassingTime(List.of(10.0, 2.0, 5.0, 1.0));
         System.out.println(result);
     }
 
 
-    public static double getMinPassingTime(List<Double> times) {
+    public double getMinPassingTime(List<Double> times) {
         double totalTime = 0;
 
         List<Double> friendsOnLeftSide = new ArrayList<>(times);
